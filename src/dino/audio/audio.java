@@ -1,32 +1,22 @@
 package dino.audio;
 import java.io.*;
-import javazoom.jl.player.*;
-import javazoom.jl.decoder.*;
-import javazoom.jl.converter.*;
-class audioException extends Exception{
-    audioException(String errMesage){
-        super(errMesage);
-    }
-}
-class AudioMultiThread implements Runnable{
-    private String addr;
-    AudioMultiThread(String address){
-        this.addr=address;
+//由于技术水平不足，只好用ffplay播放
+class audioThread implements Runnable{
+    private String t;
+    audioThread(String s){
+        this.t=s;
     }
     @Override
-    public void run() throws RuntimeException{
-
-        try {
-            File file = new File(addr);
-            FileInputStream fis = new FileInputStream(file);
-            BufferedInputStream stream = new BufferedInputStream(fis);
-            Player player = new Player(stream);
-            player.play();
-        }catch (Exception e){
+    public void run() {
+        try{
+            Runtime.getRuntime().exec(t);
+        }catch (IOException e){
+>>>>>>> 39184b8 ([fixed]: fix audio problem)
             e.printStackTrace();
         }
     }
 }
+<<<<<<< HEAD
 public class audio{
     private String addr;
     private Thread t;
@@ -51,3 +41,46 @@ public class audio{
     }
 }
 
+=======
+class audioException extends Exception{
+    audioException(String a){
+        super(a);
+    }
+}
+public class audio{
+    private Boolean isplay=false;
+    private String music_path;
+    private Thread t;
+    audio(String s){
+        this.music_path=s;
+    }
+    audio(){
+
+    }
+    public void setMusic_path(String music_path) {
+        this.music_path = music_path;
+    }
+    public void play() throws audioException{
+        if(!music_path.contains(".mp3")){
+            throw new audioException("Error: Not a mp3 file!");
+        }
+        if(isplay){
+            throw new audioException("Error: please close another audio.");
+        }
+        Runnable r=new audioThread("ffplay -i -nodisp "+music_path);
+        t=new Thread(r);
+        isplay=true;
+        t.start();
+    }
+    public void pause() throws audioException{
+        if(!isplay){
+            throw new audioException("Error: You can't pause the audio before start it");
+        }
+        t.interrupt();
+    }
+    public void close(){
+        t.notifyAll();
+        isplay=false;
+    }
+}
+>>>>>>> 39184b8 ([fixed]: fix audio problem)
