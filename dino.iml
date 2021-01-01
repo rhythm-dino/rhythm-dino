@@ -8,17 +8,27 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
 <<<<<<< HEAD
+<<<<<<< HEAD
     <orderEntry type="library" name="src" level="project" />
 =======
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/src/dino/audio/jmf.jar!/" />
+=======
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/src/dino/audio/jl1.0.jar!/" />
+>>>>>>> 7dd1954 (audio finished)
         </CLASSES>
         <JAVADOC />
         <SOURCES />
       </library>
     </orderEntry>
+<<<<<<< HEAD
 >>>>>>> 636a6a5 (Unoffical commit)
+=======
+>>>>>>> 7dd1954 (audio finished)
   </component>
 </module>
