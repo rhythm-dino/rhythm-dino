@@ -2,7 +2,14 @@ package dino.main;
 import javax.swing.*;
 import dino.beatmap.*;
 import dino.extension.*;
+
+import java.applet.Applet;
+import java.applet.AudioClip;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.*;
+import dino.audio.*;
 
 public class Main {
     public static void imgPalTest() throws InterruptedException {
@@ -100,7 +107,12 @@ public class Main {
             System.out.println("key: "+a+'\n'+"value: "+inif.get(a));
         }
     }
-    public static void main(String[] args) throws InterruptedException {
+    public static void audioTest() {
+        audio player = new audio("/home/amiriox/Music/CloudMusic/findthepieces.mp3");
+        player.play();
+    }
+    public static void main(String[] args) throws InterruptedException, IOException {
         imgPalTest();
+        Process process = Runtime.getRuntime().exec("vlc /home/amiriox/Music/CloudMusic/song.wav");
     }
 }

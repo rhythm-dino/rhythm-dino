@@ -30,7 +30,7 @@ class AudioMultiThread implements Runnable{
 public class audio{
     private String addr;
     private Thread t;
-    audio(String addr){
+    public audio(String addr){
         this.addr=addr;
     }
     public void setAddr(String addr) {
