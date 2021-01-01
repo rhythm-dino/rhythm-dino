@@ -45,11 +45,11 @@ public class audio{
         isplay=true;
         t.start();
     }
-    public void pause() throws audioException{
+    public void pause() throws Exception{
         if(!isplay){
             throw new audioException("Error: You can't pause the audio before start it");
         }
-        t.interrupt();
+        t.wait();
     }
     public void close(){
         t.notifyAll();
