@@ -17,6 +17,18 @@ public class ImagePanel extends JPanel {
         setLayout(null);
     }
 
+    public int getHeightSize() {
+        return heightSize;
+    }
+
+    public int getWidthSize() {
+        return widthSize;
+    }
+
+    public position getP() {
+        return p;
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
 //        Dimension size = this.getParent().getSize();

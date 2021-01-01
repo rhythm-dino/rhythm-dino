@@ -36,4 +36,13 @@ public class position{
     public void setY(int y) {
         this.y = y;
     }
+
+    public position addX(int px) {
+        this.x+=px;
+        return this;
+    }
+    public position addY(int px) {
+        this.y+=px;
+        return this;
+    }
 }

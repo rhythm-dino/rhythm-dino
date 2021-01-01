@@ -5,15 +5,28 @@ import dino.extension.*;
 import java.util.*;
 
 public class Main {
-    public static void imgPalTest() {
+    public static void imgPalTest() throws InterruptedException {
         JFrame frame = new JFrame("Image Panel Test");
         ImageShower imageShower = new ImageShower();
         imageShower.addFileToCache("/disk01/resource/silk/1.png", "imgTester");
-        imageShower.displayImage("imgTester", frame, new position(100,100), 500, 600);
+        imageShower.displayImage("imgTester", frame, new position(100,500), 500, 600);
+//        imageShower.hideImage("imgTester");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
+        while(true) {
+            for(int i=1;i<=50;i++) {
+                imageShower.moveImageUp("imgTester", 10, frame);
+                Thread.sleep(100);
+            }
+            for(int i=1;i<=50;i++) {
+                imageShower.moveImageUp("imgTester", -10, frame);
+                Thread.sleep(100);
+            }
+
+        }
     }
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         // @yuzijiangorz: 不要把测试代码直接写到main里面 写个xxxTest方法(懒得写类了)然后main调用!
         imgPalTest();

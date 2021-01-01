@@ -38,10 +38,12 @@ class ImageEnt{
 }
 
 public class ImageShower implements IDisplayImage{
-    private Map<String, ImageEnt> imagePool; // already showed image. <K,V> = name, imageEnt
+    private Map<String, ImageEnt> imagePool; // image cache. <K,V> = name, imageEnt;
+    private Map<Integer, ImagePanel> panelPool; // already showed image. <K,V> = hashcode, panel;
 
     public ImageShower() {
         imagePool = new HashMap<String, ImageEnt>();
+        panelPool = new HashMap<Integer, ImagePanel>();
     }
 
     @Override
@@ -53,16 +55,33 @@ public class ImageShower implements IDisplayImage{
     public String getImagePath(String name) {
         return imagePool.get(name).getPath();
     }
+    public int getHash(String name) { return imagePool.get(name).getHashCode(); }
 
     @Override
     public void displayImage(String name, JFrame frm, position p, int wsize, int hsize) {
         ImagePanel panel = new ImagePanel(new ImageIcon(getImagePath(name)).getImage());
         panel.setImage(p, wsize, hsize);
         frm.add(panel);
+        panelPool.put(getHash(name), panel);
     }
 
     @Override
-    public void moveImage(String name) {
+    public void moveImageUp(String name, int px, JFrame frame) {
+        hideImage(name);
+        ImagePanel panel = panelPool.get(getHash(name));
+        panel.setImage(panel.getP().addY(-px), panel.getWidthSize(), panel.getHeightSize());
+        frame.repaint();
+        unhideImage(name);
+    }
 
+
+    public void hideImage(String name) {
+        ImagePanel imp = panelPool.get(getHash(name));
+        imp.hide();
+    }
+
+    public void unhideImage(String name) {
+        ImagePanel imp = panelPool.get(getHash(name));
+        imp.show();
     }
 }
