@@ -11,37 +11,10 @@ class audioThread implements Runnable{
         try{
             Runtime.getRuntime().exec(t);
         }catch (IOException e){
->>>>>>> 39184b8 ([fixed]: fix audio problem)
             e.printStackTrace();
         }
     }
 }
-<<<<<<< HEAD
-public class audio{
-    private String addr;
-    private Thread t;
-    public audio(String addr){
-        this.addr=addr;
-    }
-    public void setAddr(String addr) {
-        this.addr = addr;
-    }
-    public void play(){
-        Runnable r = new AudioMultiThread(addr);
-        t = new Thread(r);
-    }
-    public void pause() throws InterruptedException{
-        t.wait();
-    }
-    public void unpause() throws Exception{
-        t.notify();
-    }
-    public void end(){
-        t.interrupt();
-    }
-}
-
-=======
 class audioException extends Exception{
     audioException(String a){
         super(a);
@@ -83,4 +56,3 @@ public class audio{
         isplay=false;
     }
 }
->>>>>>> 39184b8 ([fixed]: fix audio problem)
