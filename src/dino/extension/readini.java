@@ -6,6 +6,14 @@ class iniException extends Exception{
         super(errmessage);
     }
 }
+class ini_statment{
+    private Object name,value;
+    ini_statment(Object name,Object value){
+        this.name=name;
+        this.value=value;
+    }
+
+}
 public class readini {
     /**
      * 去除ini文件中的注释，以";"或"#"开头，顺便去除UTF-8等文件的BOM头
@@ -135,5 +143,25 @@ public class readini {
         return result;
 
 
+    }
+    public Vector<String> Convert_Map_To_Multi_String(Map<String,Object> m){
+        Vector<String> n=new Vector<>();
+        Set s=m.keySet();
+        Iterator i=s.iterator();
+        while (i.hasNext()){
+            Object o=i.next();
+            n.add("key: "+o+" value: "+m.get(o));
+        }
+        return n;
+    }
+    public Vector<ini_statment> Convert_Map_To_Multi_InIStatement(Map<String,Object> mp){
+        Vector<ini_statment> n=new Vector<>();
+        Set s=mp.keySet();
+        Iterator i=s.iterator();
+        while (i.hasNext()){
+            Object o=i.next();
+            n.add(new ini_statment(o,mp.get(o)));
+        }
+        return n;
     }
 }
