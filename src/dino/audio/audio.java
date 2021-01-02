@@ -15,7 +15,7 @@ class audioThread implements Runnable{
         }
     }
 }
-class audioException extends Exception{
+public class audioException extends Exception{
     audioException(String a){
         super(a);
     }
@@ -24,7 +24,7 @@ public class audio{
     private Boolean isplay=false;
     private String music_path;
     private Thread t;
-    audio(String s){
+    public audio(String s){
         this.music_path=s;
     }
     audio(){
