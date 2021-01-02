@@ -51,8 +51,11 @@ public class audio{
         }
         t.wait();
     }
-    public void close(){
+    public void unpause(){
         t.notifyAll();
+    }
+    public void close(){
+        t.interrupt();
         isplay=false;
     }
 }
