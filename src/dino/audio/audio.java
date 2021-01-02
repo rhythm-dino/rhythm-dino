@@ -1,4 +1,6 @@
 package dino.audio;
+import dino.extension.audioException;
+
 import java.io.*;
 //由于技术水平不足，只好用ffplay播放
 class audioThread implements Runnable{
@@ -15,11 +17,7 @@ class audioThread implements Runnable{
         }
     }
 }
-public class audioException extends Exception{
-    audioException(String a){
-        super(a);
-    }
-}
+
 public class audio{
     private Boolean isplay=false;
     private String music_path;
@@ -33,7 +31,7 @@ public class audio{
     public void setMusic_path(String music_path) {
         this.music_path = music_path;
     }
-    public void play() throws audioException{
+    public void play() throws audioException, InterruptedException {
         if(!music_path.contains(".mp3")){
             throw new audioException("Error: Not a mp3 file!");
         }
@@ -41,9 +39,11 @@ public class audio{
             throw new audioException("Error: please close another audio.");
         }
         Runnable r=new audioThread("ffplay -i -nodisp "+music_path);
+        System.out.println(111);
         t=new Thread(r);
         isplay=true;
         t.start();
+        t.join();
     }
     public void pause() throws Exception{
         if(!isplay){
