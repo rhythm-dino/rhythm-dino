@@ -1,15 +1,9 @@
 package dino.beatmap;
-
 import java.awt.*;
 import java.awt.image.ImageObserver;
 import java.awt.image.ImageProducer;
 import java.util.*;
 import dino.extension.*;
-class beatmapException extends Exception{
-    beatmapException(String errmessage){
-        super(errmessage);
-    }
-}
 public class beatmap {
     private double stars;
     private String songs;
@@ -20,6 +14,9 @@ public class beatmap {
         this.songs=b.songs;
         this.inifile=b.inifile;
         this.stars=b.stars;
+    }
+    public beatmap(){
+
     }
     public void Read_Beatmap(String bpath)
     {

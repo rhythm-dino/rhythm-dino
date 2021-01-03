@@ -18,14 +18,10 @@ public class Main {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     public static void adoTest() throws Exception {
-        audio ado = new audio("/home/amiriox/Music/CloudMusic/findthepieces.mp3");
-        ado.play();
-        Thread.sleep(9000);
-        ado.pause();
-        Thread.sleep(50000);
-        ado.play();
+
     }
     public static void main(String[] args) throws Exception {
+<<<<<<< HEAD
 //        imgTest();
 //        adoTest();
 //        Thread.sleep(10000000);
@@ -36,6 +32,9 @@ public class Main {
         frame.pack();
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+=======
+        adoTest();
+>>>>>>> 93ed215 (...)
     }
 }
 

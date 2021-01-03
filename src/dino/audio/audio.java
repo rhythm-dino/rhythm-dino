@@ -1,61 +1,53 @@
 package dino.audio;
 import dino.extension.audioException;
-
+import java.io.File;
+import java.io.IOException;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.*;
-//由于技术水平不足，只好用ffplay播放
-class audioThread implements Runnable{
-    private String t;
-    audioThread(String s){
-        this.t=s;
+//由于技术水平不足，使用ffmpeg将.mp3转换为.wav再播放
+public class audio{
+    private Clip c;
+    private File f;
+    private AudioInputStream ais;
+    private long pause_msec;
+    public void Convert_mp3_to_wav(String mp3local,String wavLocal) throws Exception{
+        Runtime.getRuntime().exec("ffplay -i "+mp3local+" -f wav "+wavLocal);
     }
-    @Override
-    public void run() {
-        try{
-            Runtime.getRuntime().exec(t);
-        }catch (IOException e){
+    public void play(String musicPath) throws Exception{
+        if(musicPath.contains(".mp3")){
+
+        }
+        else if(musicPath.contains(".wav")){
+
+        }
+    }
+    private void play_wav(String wavPath) throws Exception{
+        try {
+            f=new File(wavPath);
+            ais=AudioSystem.getAudioInputStream(f);
+            c=AudioSystem.getClip();
+            c.open(ais);
+            c.start();
+            c.loop(Clip.LOOP_CONTINUOUSLY);
+        }catch (Exception e){
             e.printStackTrace();
         }
     }
-}
-
-public class audio{
-    private Boolean isplay=false;
-    private String music_path;
-    private Thread t;
-    public audio(String s){
-        this.music_path=s;
-    }
-    audio(){
-
-    }
-    public void setMusic_path(String music_path) {
-        this.music_path = music_path;
-    }
-    public void play() throws audioException, InterruptedException {
-        if(!music_path.contains(".mp3")){
-            throw new audioException("Error: Not a mp3 file!");
-        }
-        if(isplay){
-            throw new audioException("Error: please close another audio.");
-        }
-        Runnable r=new audioThread("ffplay -i -nodisp "+music_path);
-        System.out.println(111);
-        t=new Thread(r);
-        isplay=true;
-        t.start();
-        t.join();
-    }
     public void pause() throws Exception{
-        if(!isplay){
-            throw new audioException("Error: You can't pause the audio before start it");
-        }
-        t.wait();
+        pause_msec=c.getMicrosecondLength();
+        c.stop();
     }
-    public void unpause(){
-        t.notifyAll();
+    public void unpause() throws Exception{
+        c.setMicrosecondPosition(pause_msec);
+        c.start();
     }
-    public void close(){
-        t.interrupt();
-        isplay=false;
+    public void Reset() throws Exception{
+        c.setMicrosecondPosition(0);
+        c.start();
     }
+
 }
