@@ -11,9 +11,12 @@ public class Dinor extends AbstractEntity{
     private String imagePath;   // gif
     private ImageShower imageShower = new ImageShower();
 
+    Dinor(String imgPath) {
+        imagePath = imgPath;
+    }
     @Override
     public void display(position p, JFrame frame) {
-        imageShower.addFileToCache("/disk01/resource/silk/1.png", "dino");
+        imageShower.addFileToCache(imagePath, "dino");
         imageShower.displayImage("dino",frame, p, 200, 300);
     }
 
