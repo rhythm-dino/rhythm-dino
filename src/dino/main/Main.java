@@ -27,8 +27,15 @@ public class Main {
     }
     public static void main(String[] args) throws Exception {
 //        imgTest();
-        adoTest();
-        Thread.sleep(10000000);
+//        adoTest();
+//        Thread.sleep(10000000);
+        Scenes scenes = new Scenes();
+        JFrame frame = new JFrame("dinor test");
+        scenes.play(frame);
+
+        frame.pack();
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 }
 
