@@ -18,7 +18,7 @@ public class audio{
     private Boolean istmp=false;
     private String tmplocal=System.getProperty("user.dir")+"\\tmp\\poster.wav";
     public void Convert_mp3_to_wav(String mp3local,String wavLocal) throws Exception{
-        Runtime.getRuntime().exec("ffplay -i "+mp3local+" -f wav "+wavLocal);
+        Runtime.getRuntime().exec("ffmpeg -i "+mp3local+" -f wav "+wavLocal);
     }
     public void play(String musicPath) throws Exception{
         if(musicPath.contains(".mp3")){
