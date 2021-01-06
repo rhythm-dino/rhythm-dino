@@ -8,14 +8,16 @@ class tarException extends Exception {
     }
 }
 public class tarfile {
-    private String tarname;
-    public tarfile(String tarname){
-        this.tarname=tarname;
-    }
-    private static void ZipFile(String filepath ,String zippath) throws tarException{
-        if(filepath.indexOf(".zip")==-1 || zippath.indexOf(".zip")==-1)
+    public static void ZipFile(String filepath ,String zippath) throws tarException{
+        if(zippath.indexOf(".zip")==-1)
         {
             throw new tarException("Error: This is not a zip File!");
+        }
+        else if(!new File(filepath).exists()){
+            throw new tarException("Error: The file path is not exists!");
+        }
+        else if(filepath.contains(".")){
+            throw new tarException("Error: only Zip the folder!");
         }
         try {
             File file = new File(filepath);// 要被压缩的文件夹

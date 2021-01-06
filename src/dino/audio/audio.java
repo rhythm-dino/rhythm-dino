@@ -2,13 +2,12 @@ package dino.audio;
 import dino.extension.audioException;
 import java.io.File;
 import java.io.IOException;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.sound.sampled.*;
 import java.io.*;
 import java.net.URI;
+import java.net.URL;
+import java.net.URLConnection;
+
 //由于技术水平不足，使用ffmpeg将.mp3转换为.wav再播放
 public class audio{
     private Clip c;
@@ -16,7 +15,10 @@ public class audio{
     private AudioInputStream ais;
     private long pause_msec;
     private Boolean istmp=false;
-    private String tmplocal=System.getProperty("user.dir")+"\\tmp\\poster.wav";
+    private String tmplocal=System.getProperty("user.dir")+"\\tmp\\Convert.wav";
+    public audio(){
+
+    }
     public void Convert_mp3_to_wav(String mp3local,String wavLocal) throws Exception{
         Runtime.getRuntime().exec("ffmpeg -i "+mp3local+" -f wav "+wavLocal);
     }
@@ -70,9 +72,17 @@ public class audio{
         if(istmp){
             if(! (new File(tmplocal).delete()) ){
                 throw new audioException("Error: Cannot delete tmp Files!");
-            }
+        }
         }
         istmp=false;
         System.gc();
+    }
+    /**
+     * @description: returns the second,not the millisecond
+     * */
+    public long Get_radio_time(String path) throws Exception {
+        Clip cp=AudioSystem.getClip();
+        cp.open(AudioSystem.getAudioInputStream(new File(path)));
+        return cp.getMicrosecondLength()/1000;
     }
 }

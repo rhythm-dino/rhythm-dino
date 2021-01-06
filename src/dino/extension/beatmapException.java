@@ -1,7 +1,7 @@
 package dino.extension;
 
 public class beatmapException extends Exception{
-    beatmapException(String errmessage){
+    public beatmapException(String errmessage){
         super(errmessage);
     }
 }
