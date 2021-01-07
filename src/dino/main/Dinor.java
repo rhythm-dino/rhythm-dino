@@ -10,9 +10,11 @@ import java.util.Map;
 public class Dinor extends AbstractEntity{
     private String imagePath;   // gif
     private ImageShower imageShower = new ImageShower();
-
-    Dinor(String imgPath) {
+    public Dinor(String imgPath) {
         imagePath = imgPath;
+    }
+    public Dinor() {
+        imagePath = System.getProperty("user.dir")+"/img/dino.gif";
     }
     @Override
     public void display(position p, JFrame frame) {
