@@ -15,7 +15,7 @@ public class audio{
     private AudioInputStream ais;
     private long pause_msec;
     private Boolean istmp=false;
-    private String tmplocal=System.getProperty("user.dir")+"\\tmp\\Convert.wav";
+    private String tmplocal=System.getProperty("user.dir")+"/tmp/Convert.wav";
     public audio(){
 
     }
@@ -83,6 +83,6 @@ public class audio{
     public long Get_radio_time(String path) throws Exception {
         Clip cp=AudioSystem.getClip();
         cp.open(AudioSystem.getAudioInputStream(new File(path)));
-        return cp.getMicrosecondLength()/1000;
+        return cp.getMicrosecondLength();
     }
 }
