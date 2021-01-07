@@ -74,6 +74,13 @@ public class ImageShower implements IDisplayImage{
         unhideImage(name);
     }
 
+    public void moveImageLeft(String name, int px, JFrame frame) {
+        hideImage(name);
+        ImagePanel panel = panelPool.get(getHash(name));
+        panel.setImage(panel.getP().addX(-px) ,panel.getWidthSize(), panel.getHeightSize());
+        frame.repaint();
+        unhideImage(name);
+    }
 
     public void hideImage(String name) {
         ImagePanel imp = panelPool.get(getHash(name));
