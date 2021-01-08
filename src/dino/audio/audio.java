@@ -7,7 +7,8 @@ import java.io.*;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
-
+import java.util.Map;
+import java.util.*;
 //由于技术水平不足，使用ffmpeg将.mp3转换为.wav再播放
 public class audio{
     private Clip c;
@@ -15,12 +16,16 @@ public class audio{
     private AudioInputStream ais;
     private long pause_msec;
     private Boolean istmp=false;
-    private String tmplocal=System.getProperty("user.dir")+"/tmp/Convert.wav";
+    private String tmplocal=System.getProperty("user.dir")+"\\tmp\\Convert.wav";
+    private Map<Integer,String> song;
     public audio(){
 
     }
     public void Convert_mp3_to_wav(String mp3local,String wavLocal) throws Exception{
         Runtime.getRuntime().exec("ffmpeg -i "+mp3local+" -f wav "+wavLocal);
+    }
+    public void Add_music_path(String folder_path,int key){
+        song.put(key,folder_path);
     }
     public void play(String musicPath) throws Exception{
         if(musicPath.contains(".mp3")){
@@ -34,6 +39,9 @@ public class audio{
         else{
             throw new audioException("This file does not contain mp3 or wav!");
         }
+    }
+    public void play(int key) throws Exception{
+        play(song.get(key));
     }
     private void play_wav(String wavPath) throws Exception{
         try {
@@ -83,6 +91,6 @@ public class audio{
     public long Get_radio_time(String path) throws Exception {
         Clip cp=AudioSystem.getClip();
         cp.open(AudioSystem.getAudioInputStream(new File(path)));
-        return cp.getMicrosecondLength();
+        return cp.getMicrosecondLength()/1000;
     }
 }
