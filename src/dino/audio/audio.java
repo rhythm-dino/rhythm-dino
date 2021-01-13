@@ -1,4 +1,5 @@
 package dino.audio;
+import dino.beatmap.MapCore;
 import dino.extension.audioException;
 import java.io.File;
 import java.io.IOException;
@@ -88,9 +89,9 @@ public class audio{
     /**
      * @description: returns the second,not the millisecond
      * */
-    public long Get_radio_time(String path) throws Exception {
+    public double Get_radio_time(String path) throws Exception {
         Clip cp=AudioSystem.getClip();
         cp.open(AudioSystem.getAudioInputStream(new File(path)));
-        return cp.getMicrosecondLength()/1000;
+        return cp.getMicrosecondLength()/1000000;
     }
 }
