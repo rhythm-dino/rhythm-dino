@@ -18,8 +18,9 @@ public class Dinor extends AbstractEntity{
     Lock r = rwl.readLock();
     Lock w = rwl.writeLock();
 
-    Dinor(String imgPath) {
+    Dinor(String imgPath, ImageShower imgs) {
         imagePath = imgPath;
+        imageShower = imgs;
     }
     @Override
     public void display(position p, JFrame frame) {
