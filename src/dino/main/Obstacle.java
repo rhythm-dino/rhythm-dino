@@ -10,17 +10,20 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 public class Obstacle extends AbstractObstacle{
     private String imagePath;
     private int obsHeight = 0;
-    public int distanceToLeft;
+    public int distanceToLeft = 100;
     private String tName = "obs";
     private ImageShower imageShower;
+    private position selfPosition;  //TODO
+
     static ReentrantReadWriteLock rwl = new ReentrantReadWriteLock();
     Lock r = rwl.readLock();
     Lock w = rwl.writeLock();
 
-    public Obstacle(String path, int height, ImageShower imgs) {
+    public Obstacle(String path, int height, ImageShower imgs, position p) {
         obsHeight = height;
         imagePath = path;
         imageShower = imgs;
+        this.distanceToLeft = p.getX();
     }
 
     @Override
@@ -28,9 +31,22 @@ public class Obstacle extends AbstractObstacle{
         imageShower.addFileToCache(imagePath, entName);
         imageShower.displayImage(entName,frame, p, 200, 300);
     }
-
+    public String gettName() {
+        return this.tName;
+    }
     public void beCloserToDino(int speed, JFrame frame) {
-        for(int i=1;i<=90;i++) {
+        /*
+        ┌────────────────────┐
+        │Process             │
+        │┌────────┐┌────────┐│
+        ││ Thread ││ Thread ││
+        │└────────┘└────────┘│
+        │┌────────┐┌────────┐│
+        ││ Thread ││ Thread ││
+        │└────────┘└────────┘│
+        └────────────────────┘
+        */
+        while(distanceToLeft>=0) {
             imageShower.moveImageLeft(tName, speed, frame);
             try {
                 Thread.sleep(10);
@@ -41,6 +57,7 @@ public class Obstacle extends AbstractObstacle{
                 distanceToLeft -= speed;
                 w.unlock();
             }
+            imageShower.hideImage(tName);
         }
     }
 

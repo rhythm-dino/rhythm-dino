@@ -13,6 +13,7 @@ public class Dinor extends AbstractEntity{
     private String imagePath;   // gif
     private ImageShower imageShower = new ImageShower();
     public int jumpHeight = 0;  // px
+    position selfPosition; //TODO
 
     static ReentrantReadWriteLock rwl = new ReentrantReadWriteLock();
     Lock r = rwl.readLock();
@@ -30,6 +31,7 @@ public class Dinor extends AbstractEntity{
 
     @Override
     public void jump(String name, int speed, JFrame frame) {
+        System.out.println("log: jump for" + speed);
         for(int i=1;i<=90;i++) {
             imageShower.moveImageUp(name, speed, frame);
             try {
