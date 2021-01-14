@@ -34,7 +34,7 @@ public class Obstacle extends AbstractObstacle{
     public String gettName() {
         return this.tName;
     }
-    public void beCloserToDino(int speed, JFrame frame) {
+    public void beCloserToDino(int speed, JFrame frame, Dinor dino) {
         /*
         ┌────────────────────┐
         │Process             │
@@ -53,16 +53,26 @@ public class Obstacle extends AbstractObstacle{
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }finally {
+                if(distanceToLeft-Scenes.settings.getDinoDisToLeft()<=0) {
+                    if(canPass(dino)) {
+                        System.out.println("you win");
+                    }else {
+                        System.out.println("boomed!");
+                        break;
+                    }
+                }
                 w.lock();
                 distanceToLeft -= speed;
                 w.unlock();
             }
-            imageShower.hideImage(tName);
         }
+        imageShower.hideImage(tName);
     }
 
     @Override
     public boolean canPass(Dinor dino) {
         return dino.jumpHeight >= obsHeight;
     }
+    //TODO
 }
+

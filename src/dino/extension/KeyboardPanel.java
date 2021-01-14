@@ -1,6 +1,7 @@
 package dino.extension;
 
 import dino.main.Dinor;
+import dino.main.Scenes;
 
 import javax.swing.*;
 import java.awt.event.KeyAdapter;
@@ -15,9 +16,11 @@ public class KeyboardPanel extends JPanel {
                 switch (e.getKeyCode()) {
                     case KeyEvent.VK_UP : {
                         System.out.println(100); //TODO
-                        MoveThread tMove = new MoveThread(dino, 5, frm);
-                        Thread tm = new Thread(tMove);
-                        tm.start();
+                        if(!dino.isInAir) {
+                            MoveThread tMove = new MoveThread(dino, Scenes.settings.getDinoSpeed(), frm);
+                            Thread tm = new Thread(tMove);
+                            tm.start();
+                        }
                         break;
                     }
                     case KeyEvent.VK_DOWN: {

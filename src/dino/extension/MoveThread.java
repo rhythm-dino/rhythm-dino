@@ -9,10 +9,12 @@ public class MoveThread implements Runnable{
     Object ent;
     int speed;
     JFrame frm;
-    public MoveThread(Obstacle obs, int spd, JFrame fm) {
+    Dinor _dino;
+    public MoveThread(Obstacle obs, int spd, JFrame fm, Dinor dino) {
         this.ent = obs;
         this.frm = fm;
         this.speed = spd;
+        _dino=dino;
     }
     public MoveThread(Dinor din, int spd, JFrame fm) {
         this.ent = din;
@@ -25,6 +27,6 @@ public class MoveThread implements Runnable{
             ((Dinor) ent).jump("dino", speed, frm);
 
         else if(ent instanceof Obstacle)
-            ((Obstacle) ent).beCloserToDino(speed, frm);
+            ((Obstacle) ent).beCloserToDino(speed, frm, _dino);
     }
 }
