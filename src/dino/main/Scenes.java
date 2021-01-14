@@ -34,8 +34,8 @@ public class Scenes extends JFrame {
     public void play(/*JFrame frm*/) {
         add(keyboardPanel);
         keyboardPanel.setFocusable(true);
-
         dinor.display(new position(settings.getDinoDisToLeft()-200,500),this);
+        dinor.display(new position(100,800),this);
         obs.display(new position(700, 500), this, "obs");
         this.pack();
         this.setVisible(true);
