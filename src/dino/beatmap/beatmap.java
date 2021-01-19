@@ -40,6 +40,13 @@ public class beatmap {
     public beatmap(){
 
     }
+    protected String[] imgname = {
+            "dino.png",
+            "obstacle.png",
+            "long_obstacle.png",
+            "dynamic_obstacle.png",
+            "bg.png"
+    };
     public void Read() throws IOException, mapException {
         InputStream inputstream = new FileInputStream(new File(f.getPath()+"/Config.data"));
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputstream,"UTF-8"),512);
@@ -49,55 +56,24 @@ public class beatmap {
                 name = line.substring("Name: ".length());
             }
             else if(i==1){
-                difficulty = Double.parseDouble(line.substring("Difficulty: ".length()));
-            }
-            else if(i>1&&i<=6){
-                Add_Image(line);
-            }
-            else if(i==7){
                 Author = line.substring("Author: ".length());
             }
-            else if(i==8){
+            else if(i==2){
+                difficulty = Double.parseDouble(line.substring("Difficulty: ".length()));
+            }
+            else if(i==3){
                 Long tmp = Long.parseLong(line.substring("TimeStamp: ".length()));
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 TimeStamp = simpleDateFormat.format(new Date(Long.parseLong(String.valueOf(tmp))));
             }
-            else if(i==9){
+            else if(i==4){
                 mp.Readmap(f.getPath()+line.substring("MapName: ".length()));
             }
             i++;
         }
-    }
-    private void Add_Image(String line){
-        if(line.startsWith("Dino: ")){
-            if(line.substring("Dino: ".length())==""){
-                return;
-            }
-            All_image.addFileToCache(line.substring("Dino: ".length()),"Dino");
-        }
-        else if(line.startsWith("Obstacle: ")){
-            if(line.substring("Obstacle: ".length())==""){
-                return;
-            }
-            All_image.addFileToCache(line.substring("Obstacle: ".length()),"Obstacle");
-        }
-        else if(line.startsWith("LongObstacle: ")){
-            if(line.substring("LongObstacle: ".length())==""){
-                return;
-            }
-            All_image.addFileToCache(line.substring("LongObstacle: ".length()),"LongObstacle");
-        }
-        else if(line.startsWith("DynamicObstacle: ")){
-            if(line.substring("DynamicObstacle: ".length())==""){
-                return;
-            }
-            All_image.addFileToCache(line.substring("DynamicObstacle: ".length()),"DynamicObstacle");
-        }
-        else if(line.startsWith("Background: ")){
-            if(line.substring("Background: ".length())==""){
-                return;
-            }
-            background = line.substring("Background: ".length());
+        for(int i1=0;i1<5;i1++){
+            All_image.addFileToCache(f.getPath()+"/"+imgname[i],imgname[i].replace(".png",""));
         }
     }
+
 }
